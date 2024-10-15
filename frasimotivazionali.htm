@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aforismi scienziati</title>
+
+    <style>
+        body{
+            background-color: antiquewhite;
+        }
+        h1{
+            text-align: center;
+        }
+        #box{
+            background-color: burlywood;
+            height: 150px;
+            width: 13%;
+            padding: 1%;
+            margin: 2%;
+            border: 5px solid rgb(160, 133, 97);
+            float: inline-start;
+        }
+        button{
+            background-color: rgb(160, 133, 97);
+        }
+    </style>
+</head>
+<body>
+    <h1>Cinque massime di scienziati</h1>
+    
+    <div id="box">Galileo Galilei
+        <div id="cit1">
+            <button onclick="cit1()"> Scopri la citazione </button>
+        </div>
+    </div>
+
+    <div id="box">Theodore Roszak
+        <div id="cit2">
+            <button onclick="cit2()"> Scopri la citazione </button>
+        </div>
+    </div>
+
+    <div id="box">Carl Sagan
+        <div id="cit3">
+            <button onclick="cit3()"> Scopri la citazione </button>
+        </div>
+    </div>
+
+    <div id="box">Margherita Hack
+        <div id="cit4">
+            <button onclick="cit4()"> Scopri la citazione </button>
+        </div>
+    </div>
+
+    <div id="box">James Clerk Maxwell
+        <div id="cit5">
+            <button onclick="cit5()"> Scopri la citazione </button>
+        </div>
+    </div>
+
+    <script>
+        function cit1(){
+            document.getElementById("cit1").innerHTML = "In questioni di scienza, l'autorità di un migliaio di persone non vale tanto quanto l'umile ragionamento di un singolo individuo";
+        }
+        function cit2(){
+            document.getElementById("cit2").innerHTML = "La natura compone alcune delle sue poesie più belle davanti al microscopio e al telescopio";
+        }
+        function cit3(){
+            document.getElementById("cit3").innerHTML = "Siamo materia stellare che medita sulle stelle";
+        }
+        function cit4(){
+            document.getElementById("cit4").innerHTML = "È così bello fissare il cielo e accorgersi di come non sia altro che un vero e proprio immenso laboratorio di fisica che si srotola sulle nostre teste";
+        }
+        function cit5(){
+            document.getElementById("cit5").innerHTML = "A un certo punto non fu più la biologia a dominare il destino dell'uomo, ma il prodotto del suo cervello: la cultura";
+        }
+    </script>
+</body>
+</html>
