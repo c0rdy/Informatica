@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esercizio js</title>
+    <style>
+        #out1{
+            background-color: beige;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="out1">
+        <p>stampa i numeri da 1 a 100 con il ciclo for</p>
+        <button onclick=stampa()> stampa numeri </button>
+    </div>
+
+    <script>
+        function stampa()
+        {
+            let risultato="";
+            for(let i=0;i<100;i++)
+            {
+                risultato=risultato+i+"<br>";
+            }
+            document.getElementById("out1").innerHTML = risultato;
+        }
+    </script>
+</body>
+</html>
