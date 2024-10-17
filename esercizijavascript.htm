@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esercizi js</title>
+    <style>
+        body{
+            background-color: beige;
+        }
+
+        #out{
+            text-align: center;
+            width: 95%;
+            border: 3px solid dodgerblue;
+            border-radius: 25px;
+            margin: 15px;
+            padding: 5px;
+        }
+
+        #b1{
+            background-color: red;
+        }
+        #b2{
+            background-color: blue;
+        }
+        #b3{
+            background-color: yellow;
+        }
+        #b4{
+            background-color: green;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="out">
+        <p>Stampa i numeri da 1 a 100 con il ciclo for:</p>
+        <div id="f1">
+            <button id="b1" onclick=num()> stampa numeri </button>
+        </div>
+    </div>
+
+    <div id="out">
+        <p>Stampa i numeri pari con il ciclo for:</p>
+        <div id="f2">
+            <button id="b2" onclick=pari()> stampa numeri </button>
+        </div>
+    </div>
+
+    <div id="out">
+        <p>Stampa la tabellina del 9 fino a 1000 con il ciclo for:</p>
+        <div id="f3">
+            <button id="b3" onclick=tab()> stampa numeri </button>
+        </div>
+    </div>
+
+    <div id="out">
+        <p>Stampa 10 numeri casuali da 1 a 90 con il ciclo for:</p>
+        <div id="f4">
+            <button id="b4" onclick=random()> stampa numeri </button>
+        </div>
+    </div>
+
+    <script>
+        function num()
+        {
+            let risultato="";
+            for(let i=1;i<=100;i++)
+            {
+                risultato=risultato+i+" , ";
+            }
+            document.getElementById("f1").innerHTML = risultato;
+        }
+
+        function pari()
+        {
+            let risultato="";
+            for(let i=0;i<=100;i++)
+            {
+                risultato=risultato+2*i+" , ";
+            }
+            document.getElementById("f2").innerHTML = risultato + "...";
+        }
+
+        function tab()
+        {
+            let risultato="";
+            for(let i=0;9*i<=1000;i++)
+            {
+                risultato=risultato+9*i+" , ";
+            }
+            document.getElementById("f3").innerHTML = risultato;
+        }
+
+        function random()
+        {
+            let risultato="";
+            for(let i=1 ; i<=10;i++)
+            {
+                risultato=risultato+Math.floor(Math.random() * 91 )+" , "
+            }
+            document.getElementById("f4").innerHTML = risultato;
+        }
+
+    </script>
+</body>
+</html>
