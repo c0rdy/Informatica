@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conto alla rovescia</title>
+    <style>
+        #demo{
+            text-align: center;
+            font-size: 300px;
+        }
+    </style>
+</head>
+<body>
+    <p id="demo"></p>
+
+    <script>
+        let contatore = 11
+        const element = document.getElementById("demo");
+        const temp1= setInterval(stampa, 1000);
+        /*iner html è uno dei modi per fare l'output ;  la notazione +=i (nel programma continua ad inserirmi "hello") è uguale a i++*/
+        //clearInterval(temp1);
+        function stampa(){
+        contatore--;
+        element.innerHTML = contatore + " ";
+        if(contatore==0){
+            clearInterval(temp1);
+        };
+    }
+    </script>
+</body>
+</html>
