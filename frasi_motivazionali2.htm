@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aforismi scienziati</title>
+
+    <style>
+        body{
+            background-color: antiquewhite;
+        }
+        h1{
+            text-align: center;
+        }
+        #box{
+            background-color: burlywood;
+            height: 150px;
+            width: 13%;
+            padding: 1%;
+            margin: 2%;
+            border: 5px solid rgb(160, 133, 97);
+            float: inline-start;
+        }
+        button{
+            background-color: rgb(160, 133, 97);
+        }
+    </style>
+</head>
+<body>
+    <h1>Cinque massime di scienziati</h1>
+    
+    <div id="box">Galileo Galilei
+        <button id="text" onclick="text()" style="display:none">Mostra citazione</button>
+        <div id="cit">
+            "In questioni di scienza, l'autorità di un migliaio di persone non vale tanto quanto l'umile ragionamento di un singolo individuo"
+        </div>
+        <button id="b" onclick="cit()"> Nascondi la citazione </button>
+    </div>
+
+    <div id="box">Galileo Galilei
+        <button id="text" onclick="text()" style="display:none">Mostra citazione</button>
+        <div id="cit">
+            "In questioni di scienza, l'autorità di un migliaio di persone non vale tanto quanto l'umile ragionamento di un singolo individuo"
+        </div>
+        <button id="b" onclick="cit()"> Nascondi la citazione </button>
+    </div>
+
+    <!--<div id="box">Theodore Roszak
+        <button id="text" onclick="text()" style="display:none">Fai riapparire il testo</button>
+        <div id="cit">
+            "In questioni di scienza, l'autorità di un migliaio di persone non vale tanto quanto l'umile ragionamento di un singolo individuo"
+        </div>
+        <button id="b" onclick="cit()"> Nascondi la citazione </button>
+    </div>-->
+
+    <div id="box">Carl Sagan
+        <div id="cit3">
+            "Siamo materia stellare che medita sulle stelle"
+        </div>
+        <button onclick="cit3()"> Nascondi la citazione </button>
+    </div>
+
+    <div id="box">Margherita Hack
+        <div id="cit4">
+            "È così bello fissare il cielo e accorgersi di come non sia altro che un vero e proprio immenso laboratorio di fisica che si srotola sulle nostre teste"
+        </div>
+        <button onclick="cit4()"> Nascondi la citazione </button>
+    </div>
+
+    <div id="box">James Clerk Maxwell
+        <div id="cit5">
+            "A un certo punto non fu più la biologia a dominare il destino dell'uomo, ma il prodotto del suo cervello: la cultura"
+        </div>
+        <button onclick="cit5()"> Nascondi la citazione </button> <!--dopo aver premuto il pulsante che nasconde la citazione,
+        visualizzare a schermo un altro pulsante "mostra citazione" che fa riapparire la citazione; esso deve riportare alla
+        situasione iniziale, con la citazione e il pulsante "nascondi citazione"-->
+    </div>
+
+    <script>
+        var wow = document.getElementById('text')
+        var testo = document.getElementById("cit")
+        var b = document.getElementById('b')
+        function text(){
+            b.style.display='block';
+            testo.style.display = "block";
+            wow.style.display='none';
+        }
+        function cit(){
+        //const testo = document.getElementById("cit");
+        testo.style.display = "none";
+        wow.style.display='block';
+        b.style.display='none';
+        }
+        
+        /*function cit(){
+        const testo = document.getElementById("cit");
+        testo.style.display = "none";
+        wow.style.display='block';
+        document.getElementById('b').style.display='none';
+        }
+        
+        function cit3(){
+        const testo = document.getElementById("cit3");
+        testo.style.display = "none";
+        }
+
+        function cit4(){
+        const testo = document.getElementById("cit4");
+        testo.style.display = "none";
+        }
+
+        function cit5(){
+        const testo = document.getElementById("cit5");
+        testo.style.display = "none";
+        }*/
+    </script>
+</body>
+</html>
