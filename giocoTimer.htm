@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gioco contatore</title>
+
+    <style>
+        #h1{
+            text-align: center;
+        }
+        #p{
+            text-align: center;
+            font-size: 20px;
+        }
+        #div{
+            text-align: center;
+            font-size: 100px;
+        }
+        #stop{
+            padding: 50px 50px;
+            border-radius: 50%;
+            background-color: red;
+            border: 1px solid black;
+            box-shadow: 0 9px #777;
+        }
+        #stop:active{
+            box-shadow: 0 5px #444;
+            transform: translateY(4px);
+        }
+        #tempi{
+            float: right;
+        }
+
+
+    </style>
+
+</head>
+<body>
+    <h1 id="h1">Sfida i tuoi riflessi!</h1>
+    <p id="p">L'obiettivo del gioco è cliccare il bottone rosso provando ad essere il più vicino possibile ai 90, 80, 70, 60, 50, 40, 30, 20 e 10 secondi<br>
+    Quando sei pronto, clicca il pulsante "VIA!"
+    </p>
+
+    <div id="div">
+        <button id="sb" onclick="start()">VIA!</button>
+        <!--"sb" = "start button"-->
+    </div>
+
+    <div id="interfaccia">
+        <button id="stop" onclick="flag()"></button>
+        <div id="tempi"></div>
+    </div>
+
+    <script>
+        function start(){
+            p.style.display = "none";
+            sb.style.display = "none";
+            let count = 4;
+            let countdown = setInterval(star, 1000);
+            function star(){
+                count--;
+                document.getElementById("div").innerHTML = count;
+                if(count==0){
+                    clearInterval(countdown);
+                    let tempo = 100.00;
+                    let timer = setInterval(temporizzatore, 10);
+                    function temporizzatore(){
+                        tempo= tempo-0.01;
+                        let n = tempo.toFixed(2); 
+                        /*"toFixed" mi converte il numero in una stringa,
+                        arrotondata al numero di cifre decimali specificato tra le parentesi*/
+                        document.getElementById("div").innerHTML = n;
+                        if(n==0.00){
+                            clearInterval(timer);
+                        };
+                    };
+                };
+            };
+        }
+
+        function flag(){
+            const tempiGiocatore = [];
+            let tempoGiocatore = document.getElementsById("div");
+            tempiGiocatore.push(tempoGiocatore);
+
+            /*for(let i = 0; i< tempigiocatore.length; i++){
+                document.getElementById("tempi").innerHTML += tempiGiocatore[0] + "<br>";
+            }*/
+
+            document.getElementById("tempi").innerHTML = tempiGiocatore[0] + "<br>";
+        }
+
+    </script>
+
+</body>
+</html>
