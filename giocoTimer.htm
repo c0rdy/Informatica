@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +14,7 @@
             text-align: center;
             font-size: 20px;
         }
-        #div{
+        #t1{
             text-align: center;
             font-size: 100px;
         }
@@ -31,6 +32,9 @@
         #tempi{
             float: right;
         }
+        #txt{
+            float: left;
+        }
 
 
     </style>
@@ -42,17 +46,23 @@
     Quando sei pronto, clicca il pulsante "VIA!"
     </p>
 
-    <div id="div">
+    <div id="t1">
         <button id="sb" onclick="start()">VIA!</button>
         <!--"sb" = "start button"-->
     </div>
 
     <div id="interfaccia">
         <button id="stop" onclick="flag()"></button>
-        <div id="tempi"></div>
+        <div id="tempi">
+            <div id="txt">Tempo:</div>
+        </div>
     </div>
 
     <script>
+
+        let n;
+        let tempiGiocatore=[];
+
         function start(){
             p.style.display = "none";
             sb.style.display = "none";
@@ -60,17 +70,17 @@
             let countdown = setInterval(star, 1000);
             function star(){
                 count--;
-                document.getElementById("div").innerHTML = count;
+                document.getElementById("t1").innerHTML = count;
                 if(count==0){
                     clearInterval(countdown);
                     let tempo = 100.00;
                     let timer = setInterval(temporizzatore, 10);
                     function temporizzatore(){
                         tempo= tempo-0.01;
-                        let n = tempo.toFixed(2); 
+                        n = tempo.toFixed(2); 
                         /*"toFixed" mi converte il numero in una stringa,
                         arrotondata al numero di cifre decimali specificato tra le parentesi*/
-                        document.getElementById("div").innerHTML = n;
+                        document.getElementById("t1").innerHTML = n;
                         if(n==0.00){
                             clearInterval(timer);
                         };
@@ -80,15 +90,18 @@
         }
 
         function flag(){
-            const tempiGiocatore = [];
+            tempiGiocatore.push(n);
+          document.getElementById("tempi").innerHTML = tempiGiocatore +"<br>";
+
+            /*const tempiGiocatore = [];
             let tempoGiocatore = document.getElementsById("div");
             tempiGiocatore.push(tempoGiocatore);
 
-            /*for(let i = 0; i< tempigiocatore.length; i++){
-                document.getElementById("tempi").innerHTML += tempiGiocatore[0] + "<br>";
-            }*/
+            for(let i = 0; i< tempiGiocatore.length; i++){
+                document.getElementById("tempi").innerHTML += tempiGiocatore[i] + "<br>";
+            }
 
-            document.getElementById("tempi").innerHTML = tempiGiocatore[0] + "<br>";
+            document.getElementById("tempi").innerHTML = tempiGiocatore[0] + "<br>";*/
         }
 
     </script>
