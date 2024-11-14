@@ -18,18 +18,21 @@
             text-align: center;
             font-size: 100px;
         }
-        #stop{
+        #stp{
             padding: 50px 50px;
             border-radius: 50%;
             background-color: red;
             border: 1px solid black;
             box-shadow: 0 9px #777;
         }
-        #stop:active{
+        #stp:active{
             box-shadow: 0 5px #444;
             transform: translateY(4px);
         }
-        #tempi{
+        #stp:hover{
+            background-color: rgb(245, 4, 4);
+        }
+        #boxTempi{
             float: right;
         }
         #txt{
@@ -52,16 +55,21 @@
     </div>
 
     <div id="interfaccia">
-        <button id="stop" onclick="flag()"></button>
-        <div id="tempi" class:"container">
+        <button id="stp" onclick="flag()"></button>
+        <div id="boxTempi">
             <div id="txt">Tempo:</div>
+            <div id="tempi"></div>
+            <div id="punt"></div>
         </div>
     </div>
 
     <script>
 
         let n;
-        let tempiGiocatore=[];
+        const tempiGiocatore = [];
+        const tempiOttimali = [90, 80, 70, 60, 50, 40, 30, 20, 10];
+        const punteggioSingolo = [];
+        let punteggioTotale = 0;
 
         function start(){
             p.style.display = "none";
@@ -87,22 +95,57 @@
                     };
                 };
             };
-        }
+        };
+
 
         function flag(){
+            
+            let tGLen = tempiGiocatore.length;
+            let tOLen = tempiOttimali.length;
+            let text = bruh();
+            let punti = "";
+            let somma = 0;
+            //inserisco il tempo appena preso nell'array "tempiGiocatore"
             tempiGiocatore.push(n);
-          document.getElementById("tempi").innerHTML = tempiGiocatore +"<br>";
+            
 
-            /*const tempiGiocatore = [];
-            let tempoGiocatore = document.getElementsById("div");
-            tempiGiocatore.push(tempoGiocatore);
+            //con il ciclo for, stampo a video l'ultimo tempo preso
+            function bruh(){
+                for (let i = 0; i < tGLen; i++) {
+                text += tempiGiocatore[i+1] + "<br>";
+                };
+            };
+            document.getElementById("tempi").innerHTML = text;
 
-            for(let i = 0; i< tempiGiocatore.length; i++){
-                document.getElementById("tempi").innerHTML += tempiGiocatore[i] + "<br>";
-            }
+        
+            //Calcolo la differenza tra i tempi del giocatore e i tempi ottimali
+            if (tGLen == 9){
+                for (let j = 0; j < tOLen; j++) {
+                        punti += tempiGiocatore[j]-tempiOttimali[j] + "<br>";
+                        //punti = punti.toFixed(2);   <--deve arrotondarmi il valore dei punti a due cifre decimali
+                    };
+                //punti = Math.abs(punti);   <-- deve fare il valore assoluto di ogni singolo punteggio
+                punteggioSingolo.push(punti);
+                document.getElementById("tempi").innerHTML = "punteggio:" + punti + "<br>";   //<--visualizza il punteggio di ogni tempo
+                stp.style.display = "none";
 
-            document.getElementById("tempi").innerHTML = tempiGiocatore[0] + "<br>";*/
-        }
+
+                //calcolo il punteggio effettuato
+                
+                //punteggioTotale = punteggioSingolo[0]+punteggioSingolo[1]+punteggioSingolo[2]+punteggioSingolo[3]+punteggioSingolo[4]+punteggioSingolo[5]+punteggioSingolo[6]+punteggioSingolo[7]+punteggioSingolo[8];
+
+                /*for (let i=0; i<punteggioSingolo.length; i++){
+                    punteggioTotale = punteggioTotale + punteggioSingolo[i];
+                };
+                
+                
+                document.getElementById("punt").innerHTML = punteggioTotale;*/
+
+
+                /*document.getElementById("tempi").innerHTML += text;    <--mi permette di visualizzare tutti gli elementi dell'array*/
+                
+            };
+        };
 
     </script>
 
