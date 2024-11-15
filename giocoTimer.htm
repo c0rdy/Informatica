@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,12 +39,12 @@
         #txt{
             float: left;
         }
-
+        
 
     </style>
 
 </head>
-<body>
+<body onload="chiedoNome()">
     <h1 id="h1">Sfida i tuoi riflessi!</h1>
     <p id="p">L'obiettivo del gioco è cliccare il bottone rosso provando ad essere il più vicino possibile ai 90, 80, 70, 60, 50, 40, 30, 20 e 10 secondi<br>
     Quando sei pronto, clicca il pulsante "VIA!"
@@ -98,11 +99,39 @@
         };
 
 
+        function chiedoNome(){
+            let nome=prompt("nome del giocatore:");
+
+        }
+
         function flag(){
             
-            let tGLen = tempiGiocatore.length;
+            tempiGiocatore.push(n);
+
+            let testo = tempiGiocatore[tempiGiocatore.length-1];
+
+            document.getElementById("tempi").innerHTML = "il tempo preso è " + testo + " e il punteggio effettuato è " + "" + "<br>"
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            /*let tGLen = tempiGiocatore.length;
+            console.log("lughezza array "+tGLen);
             let tOLen = tempiOttimali.length;
-            let text = bruh();
+            let text = "";
             let punti = "";
             let somma = 0;
             //inserisco il tempo appena preso nell'array "tempiGiocatore"
@@ -110,10 +139,8 @@
             
 
             //con il ciclo for, stampo a video l'ultimo tempo preso
-            function bruh(){
-                for (let i = 0; i < tGLen; i++) {
+            for (let i = 0; i < tGLen; i++) {
                 text += tempiGiocatore[i+1] + "<br>";
-                };
             };
             document.getElementById("tempi").innerHTML = text;
 
@@ -121,12 +148,12 @@
             //Calcolo la differenza tra i tempi del giocatore e i tempi ottimali
             if (tGLen == 9){
                 for (let j = 0; j < tOLen; j++) {
-                        punti += tempiGiocatore[j]-tempiOttimali[j] + "<br>";
+                        punti += tempiGiocatore[j+1]-tempiOttimali[j] + "<br>";
                         //punti = punti.toFixed(2);   <--deve arrotondarmi il valore dei punti a due cifre decimali
                     };
                 //punti = Math.abs(punti);   <-- deve fare il valore assoluto di ogni singolo punteggio
                 punteggioSingolo.push(punti);
-                document.getElementById("tempi").innerHTML = "punteggio:" + punti + "<br>";   //<--visualizza il punteggio di ogni tempo
+                document.getElementById("punt").innerHTML = "punteggio:" + punti + "<br>";   //<--visualizza il punteggio di ogni tempo
                 stp.style.display = "none";
 
 
@@ -142,9 +169,9 @@
                 document.getElementById("punt").innerHTML = punteggioTotale;*/
 
 
-                /*document.getElementById("tempi").innerHTML += text;    <--mi permette di visualizzare tutti gli elementi dell'array*/
+                /*document.getElementById("tempi").innerHTML += text;    <--mi permette di visualizzare tutti gli elementi dell'array
                 
-            };
+            };*/
         };
 
     </script>
