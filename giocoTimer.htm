@@ -1,180 +1,92 @@
-
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gioco contatore</title>
-
+    <title>Countdown</title>
     <style>
-        #h1{
+        body {
             text-align: center;
-        }
-        #p{
-            text-align: center;
+            font-family: Arial, sans-serif;
             font-size: 20px;
         }
-        #t1{
-            text-align: center;
-            font-size: 100px;
+        #countdown {
+            font-size: 40px;
+            margin-bottom: 20px;
         }
-        #stp{
+        #result {
+            margin-top: 20px;
+        }
+        #captureButton{
             padding: 50px 50px;
             border-radius: 50%;
             background-color: red;
             border: 1px solid black;
             box-shadow: 0 9px #777;
         }
-        #stp:active{
+        #captureButton:active{
             box-shadow: 0 5px #444;
             transform: translateY(4px);
         }
-        #stp:hover{
+        #captureButton:hover{
             background-color: rgb(245, 4, 4);
         }
-        #boxTempi{
-            float: right;
-        }
-        #txt{
-            float: left;
-        }
-        
-
     </style>
-
 </head>
-<body onload="chiedoNome()">
-    <h1 id="h1">Sfida i tuoi riflessi!</h1>
-    <p id="p">L'obiettivo del gioco è cliccare il bottone rosso provando ad essere il più vicino possibile ai 90, 80, 70, 60, 50, 40, 30, 20 e 10 secondi<br>
-    Quando sei pronto, clicca il pulsante "VIA!"
-    </p>
-
-    <div id="t1">
-        <button id="sb" onclick="start()">VIA!</button>
-        <!--"sb" = "start button"-->
-    </div>
-
-    <div id="interfaccia">
-        <button id="stp" onclick="flag()"></button>
-        <div id="boxTempi">
-            <div id="txt">Tempo:</div>
-            <div id="tempi"></div>
-            <div id="punt"></div>
-        </div>
-    </div>
+<body>
+    <div id="countdown">100.00</div>
+    <button id="captureButton"></button>
+    <div id="result"></div>
 
     <script>
+        let countdown = 100.00;
+        let countdownElement = document.getElementById('countdown');
+        let captureButton = document.getElementById('captureButton');
+        let resultElement = document.getElementById('result');
+        let differences = [];
+        let targetTimes = [90, 80, 70, 60, 50, 40, 30, 20, 10, 0];
+        let nextTargetIndex = 0;
 
-        let n;
-        const tempiGiocatore = [];
-        const tempiOttimali = [90, 80, 70, 60, 50, 40, 30, 20, 10];
-        const punteggioSingolo = [];
-        let punteggioTotale = 0;
-
-        function start(){
-            p.style.display = "none";
-            sb.style.display = "none";
-            let count = 4;
-            let countdown = setInterval(star, 1000);
-            function star(){
-                count--;
-                document.getElementById("t1").innerHTML = count;
-                if(count==0){
-                    clearInterval(countdown);
-                    let tempo = 100.00;
-                    let timer = setInterval(temporizzatore, 10);
-                    function temporizzatore(){
-                        tempo= tempo-0.01;
-                        n = tempo.toFixed(2); 
-                        /*"toFixed" mi converte il numero in una stringa,
-                        arrotondata al numero di cifre decimali specificato tra le parentesi*/
-                        document.getElementById("t1").innerHTML = n;
-                        if(n==0.00){
-                            clearInterval(timer);
-                        };
-                    };
-                };
-            };
-        };
-
-
-        function chiedoNome(){
-            let nome=prompt("nome del giocatore:");
-
+        function formatCountdown(num) {
+            return num.toFixed(2);
         }
 
-        function flag(){
-            
-            tempiGiocatore.push(n);
+        let interval = setInterval(function() {
+            countdown -= 0.01;
+            countdownElement.textContent = formatCountdown(countdown);
+   
+            if (nextTargetIndex < targetTimes.length && countdown <= targetTimes[nextTargetIndex]) {
+                captureButton.disabled = false;
+            }
 
-            let testo = tempiGiocatore[tempiGiocatore.length-1];
+            if (countdown <= 0) {
+                clearInterval(interval);
+                countdownElement.textContent = "0.00";
+                displayTotalDifference();
+            }
+        }, 10);
 
-            document.getElementById("tempi").innerHTML = "il tempo preso è " + testo + " e il punteggio effettuato è " + "" + "<br>"
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            /*let tGLen = tempiGiocatore.length;
-            console.log("lughezza array "+tGLen);
-            let tOLen = tempiOttimali.length;
-            let text = "";
-            let punti = "";
-            let somma = 0;
-            //inserisco il tempo appena preso nell'array "tempiGiocatore"
-            tempiGiocatore.push(n);
-            
-
-            //con il ciclo for, stampo a video l'ultimo tempo preso
-            for (let i = 0; i < tGLen; i++) {
-                text += tempiGiocatore[i+1] + "<br>";
-            };
-            document.getElementById("tempi").innerHTML = text;
-
-        
-            //Calcolo la differenza tra i tempi del giocatore e i tempi ottimali
-            if (tGLen == 9){
-                for (let j = 0; j < tOLen; j++) {
-                        punti += tempiGiocatore[j+1]-tempiOttimali[j] + "<br>";
-                        //punti = punti.toFixed(2);   <--deve arrotondarmi il valore dei punti a due cifre decimali
-                    };
-                //punti = Math.abs(punti);   <-- deve fare il valore assoluto di ogni singolo punteggio
-                punteggioSingolo.push(punti);
-                document.getElementById("punt").innerHTML = "punteggio:" + punti + "<br>";   //<--visualizza il punteggio di ogni tempo
-                stp.style.display = "none";
-
-
-                //calcolo il punteggio effettuato
+        captureButton.addEventListener('click', function() {
+            if (nextTargetIndex < targetTimes.length) {
+                let targetTime = targetTimes[nextTargetIndex];
+                let currentTime = parseFloat(countdown.toFixed(2));
+                let difference = (targetTime - currentTime).toFixed(2);
                 
-                //punteggioTotale = punteggioSingolo[0]+punteggioSingolo[1]+punteggioSingolo[2]+punteggioSingolo[3]+punteggioSingolo[4]+punteggioSingolo[5]+punteggioSingolo[6]+punteggioSingolo[7]+punteggioSingolo[8];
+                differences.push(difference);
+                resultElement.innerHTML += "<p>Obiettivo: " + targetTime + ", Catturato: " + currentTime + ", Differenza: " + difference + "</p>";
 
-                /*for (let i=0; i<punteggioSingolo.length; i++){
-                    punteggioTotale = punteggioTotale + punteggioSingolo[i];
-                };
-                
-                
-                document.getElementById("punt").innerHTML = punteggioTotale;*/
+                nextTargetIndex++;
+                //captureButton.disabled = true;
+            }
+        });
 
+        function displayTotalDifference() {
+            let totalDifference = differences.reduce(function(sum, diff) {
+                return sum + parseFloat(diff);
+            }, 0).toFixed(2);
 
-                /*document.getElementById("tempi").innerHTML += text;    <--mi permette di visualizzare tutti gli elementi dell'array
-                
-            };*/
-        };
-
+            resultElement.innerHTML += "<p><strong>Somma totale delle differenze: " + totalDifference + "</strong></p>";
+        }
     </script>
-
 </body>
 </html>
