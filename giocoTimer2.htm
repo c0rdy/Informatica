@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+        }
+        #countdown {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+        #result {
+            margin-top: 20px;
+        }
+        #captureButton{
+            padding: 50px 50px;
+            border-radius: 50%;
+            background-color: red;
+            border: 1px solid black;
+            box-shadow: 0 9px #777;
+        }
+        #captureButton:active{
+            box-shadow: 0 5px #444;
+            transform: translateY(4px);
+        }
+        #captureButton:hover{
+            background-color: rgb(245, 4, 4);
+        }
+    </style>
+</head>
+<body>
+    <div id="countdown">100.00</div>
+    <button id="captureButton"></button>
+    <div id="result"></div>
+
+    <script>
+        let nomeGiocatore = prompt("Scrivi il tuo nome");
+        let countdown = 6.00;
+        let countdownElement = document.getElementById('countdown');
+        let captureButton = document.getElementById('captureButton');
+        let resultElement = document.getElementById('result');
+        let differences = [];
+        let targetTimes = [5, 4, 3, 2, 1];
+        let nextTargetIndex = 0;
+
+        function formatCountdown(num) {
+            return num.toFixed(2);
+        }
+
+        let interval = setInterval(function() {
+            countdown -= 0.01;
+            countdownElement.textContent = formatCountdown(countdown);
+   
+            if (nextTargetIndex < targetTimes.length && countdown <= targetTimes[nextTargetIndex]) {
+                //captureButton.disabled = false;
+            }
+
+            if (countdown <= 0) {
+                clearInterval(interval);
+                countdownElement.textContent = "0.00";
+                displayTotalDifference();
+                deviazioneStandard();
+            }
+        }, 10);
+
+        captureButton.addEventListener('click', function() {
+            if (nextTargetIndex < targetTimes.length) {
+                let targetTime = targetTimes[nextTargetIndex];
+                let currentTime = parseFloat(countdown.toFixed(2));
+                let difference = (targetTime - currentTime).toFixed(2);
+                
+                differences.push(difference);
+                resultElement.innerHTML += "<p>Obiettivo: " + targetTime + ", Tempo preso: " + currentTime + ", Differenza tra i tempi: " + difference + "</p>";
+
+                nextTargetIndex++;
+                //captureButton.disabled = true;
+            }
+        });
+
+        function displayTotalDifference() {
+            let totalDifference = differences.reduce(function(sum, diff) {
+                return sum + parseFloat(diff);
+            }, 0).toFixed(2);
+        }
+
+            let media =  (totalDifference/5).toFixed(2);
+
+            let scarti = [];
+            for (let i=0; i<totalDifferenze.length; i++)
+                scarto = 
+//da fare la deviazione standard!!!
+        function deviazioneStandard() {
+            let deviazione = differences.reduce(function(sum, diff) {
+                return ;
+            }, 0).toFixed(2);
+
+
+            resultElement.innerHTML += "<strong>" + nomeGiocatore + "<p>media delle differenze: " + media + "</strong></p>";
+            resultElement.innerHTML += "deviazione standard= " + deviazione;
+        }
+    </script>
+</body>
+</html>
