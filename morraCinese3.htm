@@ -1,0 +1,49 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Array1</title>
+</head>
+<body>
+    
+    <p>
+        Definizione di array
+        Una struttra dati composta da elementi omogenei tra loro
+        (numerico, oggetti o altre strutture)
+    </p>
+
+    <p>
+        Esempio stampa di array
+    </p>
+    <button onclick="morra()">avvia la funzione</button>
+    <p id="out1">Indice 1 dell'array</p>
+    <p id="out2">Indice ultimo dell'array</p>
+    <p id="out3">Indice scelto da te dell'array</p>
+
+<script>
+    
+    let numeroGrande = prompt("Scrivi il numero dell'indice dell'array")
+
+    const arraymorra = ["sasso" , "mano" , "forbice"];
+    let lunghezzaArray = arraymorra.lenght
+
+    function morra(){
+        document.getElementById("out1").innerHTML = arraymorra[0];
+        document.getElementById("out2").innerHTML = arraymorra[lunghezzaArray-1];
+
+        if (numeroGrande<lunghezzaArray){
+            document.getElementById("out3").innerHTML = arraymorra[numeroGrande];
+        } else {
+            document.getElementById("out3").innerHTML = "l'indice scelto è troppo grande e non rientra nell'array"
+        }
+    };
+
+</script>
+
+
+
+</body>
+</html>
