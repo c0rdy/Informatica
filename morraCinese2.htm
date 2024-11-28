@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Array1</title>
+</head>
+<body>
+    
+    <p>
+        Definizione di array
+        Una struttra dati composta da elementi omogenei tra loro
+        (numerico, oggetti o altre strutture)
+    </p>
+
+    <p>
+        Esempio stampa di array
+    </p>
+    <p id="out1"></p>
+
+<script>
+
+    const arraymorra = ["sasso" , "mano" , "forbice"];
+    //document.getElementById("out1").innerHTML = arraymorra;
+    
+    for (let i = 0; i<10; i++){
+        let tiro = Math.floor(Math.random()*3);
+        document.getElementById("out1").innerHTML += arraymorra[tiro] + " , ";
+    }
+</script>
+
+
+
+</body>
+</html>
