@@ -1,5 +1,6 @@
 
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,11 +29,11 @@
     let numeroGrande = prompt("Scrivi il numero dell'indice dell'array")
 
     const arraymorra = ["sasso" , "mano" , "forbice"];
-    let lunghezzaArray = arraymorra.lenght
+    let ultimoElemento = arraymorra.length-1
 
     function morra(){
         document.getElementById("out1").innerHTML = arraymorra[0];
-        document.getElementById("out2").innerHTML = arraymorra[lunghezzaArray-1];
+        document.getElementById("out2").innerHTML = arraymorra[ultimoElemento];
 
         if (numeroGrande<lunghezzaArray){
             document.getElementById("out3").innerHTML = arraymorra[numeroGrande];
