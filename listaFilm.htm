@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gioco con gli array</title>
+
+    <style>
+        #contenuto{
+            width: 50%;
+        }
+        #listaFilm{
+            float: left;
+            margin-right: 10px;
+        };
+        #votiFilm{
+            float: right;
+        };
+    </style>
+</head>
+<body>
+    <div id="contenuto">
+        <div id="listaFilm"></div>
+        <div id="votiFilm"></div>
+    </div>
+
+    <div>
+        <button onclick="aggiungiFilm()">Aggiungi film e valutalo</button>
+    </div>
+
+    <script>
+        const arrayFilm = [];
+        const arrayValutazione = [];
+
+        function aggiungiFilm(){
+            let film = prompt("Inserisci un film che hai visto");
+            arrayFilm.push(film);
+            aggiornaFilm();
+
+            let valutazione = prompt("Che voto gli dai da 1 a 10?");
+            arrayValutazione.push(valutazione);
+            aggiornaVoti();
+        };
+
+
+
+        // Funzione per aggiornare la lista visualizzata nell'interfaccia
+        function aggiornaFilm() {
+            // Selezioniamo la lista nel DOM
+            let listaUl = document.getElementById("listaFilm");
+            listaUl.innerHTML = ""; // Svuotiamo la lista prima di aggiornarla
+
+            // Aggiungiamo ogni articolo dell'array come un elemento <li>
+            arrayFilm.forEach(function(film, index) {
+                let li = document.createElement("li");
+                li.textContent = film;
+                listaUl.appendChild(li);
+            });
+        };
+
+
+
+        // Funzione per aggiornare la lista visualizzata nell'interfaccia
+        function aggiornaVoti() {
+            // Selezioniamo la lista nel DOM
+            let listaUl = document.getElementById("votiFilm");
+            listaUl.innerHTML = ""; // Svuotiamo la lista prima di aggiornarla
+
+            // Aggiungiamo ogni articolo dell'array come un elemento <li>
+            arrayValutazione.forEach(function(valutazione, index) {
+                let li = document.createElement("li");
+                li.textContent = valutazione;
+                listaUl.appendChild(li);
+            });
+        };
+
+    </script>
+
+</body>
+</html>
