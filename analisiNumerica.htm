@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analisi numerica con Array</title>
+
+    <style>
+        #out1{
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Analisi numerica con array</h1>
+    <p>Lista generata</p>
+    <div id="out1"></div>
+    
+
+    
+
+    <script>
+
+        //array visibile a tutto lo script
+        const numeri = [];
+
+        //il numero casuale viene inserito nell'array in posizione i
+        function InserisceNumeroCasuale(i){
+            let NumeroCasuale = Math.floor(Math.random()*100);
+            numeri[i] = NumeroCasuale;
+        };
+
+        for (let i=0; i<1000; i++){
+            InserisceNumeroCasuale(i);
+        };
+
+        document.getElementById("out1").innerHTML = numeri;
+
+
+        //ragiono per assurdo, pensando che tutti i numeri siano primi
+        function IsPrime(n){
+            let prime = true;
+
+            for (let i = 2 ; i < n/2 ; i++){//parto da 2 perche so che 1 è sempre un fattore; n è il numero da vedere se è primo o no, vado fino a n/2 perchè il massimo numero che è un fattore è la metà (senza considerare il numero stesso)
+
+                if(n%i == 0){
+                    prime = false;
+                };
+
+            };
+
+            return prime;
+        };
+
+    </script>
+</body>
+</html>
