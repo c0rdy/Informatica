@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analisi Numerica con Array</title>
+    
+    <style>
+        #out1{
+            background-color: aqua;
+        }
+        #bob{
+            background-color: blueviolet;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Analisi Numerica con Array</h1>
+    <p>Lista generata:</p>
+    <p id="out1">vgjhjh</p>
+    <p id="bob">hkjkj</p>
+    <script>
+        // array visibile a tutto lo script
+        const numeri = [];
+        const NumeriPrimi = [];
+        const NumeriNonPrimi = [];
+        const fattorizzazione = [];
+        let numero;
+
+
+        for (let i=0; i<=1000; i++){
+
+            for (let j = 2; j<=i/2; j++){
+                numero=i
+                
+                if(numero%j==0){
+                    fattorizzazione.push(j);
+                    if(fattorizzazione==[]){
+                        NumeriPrimi.push(numero);
+                    } else{
+                        NumeriNonPrimi.push(numero);
+                    }
+                }
+
+            }
+
+            document.getElementById("out1").innerHTML = NumeriPrimi;
+            document.getElementById("bob").innerHTML = NumeriNonPrimi;
+
+            /*let prime=true;
+
+            for(let j=2;j<=(numero/2); j++){
+                if ((numero%j)==0){
+                    prime=false;
+                }
+                //NumeriPrimi[i] = prime;
+
+                if (prime==true){
+                    NumeriPrimi[i] = prime
+                } else{
+                    numeri.pop;
+                }
+            };*/
+        };       
+    </script>
+
+
+   
+</body>
+</html>
