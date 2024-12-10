@@ -30,28 +30,18 @@
     <h1>Cinque massime di scienziati</h1>
     
     <div id="box">Galileo Galilei
-        <button id="text" onclick="text()" style="display:none">Mostra citazione</button>
-        <div id="cit">
+        <div id="cit1">
             "In questioni di scienza, l'autorità di un migliaio di persone non vale tanto quanto l'umile ragionamento di un singolo individuo"
         </div>
-        <button id="b" onclick="cit()"> Nascondi la citazione </button>
+        <button onclick="cit1()"> Nascondi la citazione </button>
     </div>
 
-    <div id="box">Galileo Galilei
-        <button id="text" onclick="text()" style="display:none">Mostra citazione</button>
-        <div id="cit">
+    <div id="box">Theodore Roszak
+        <div id="cit2">
             "In questioni di scienza, l'autorità di un migliaio di persone non vale tanto quanto l'umile ragionamento di un singolo individuo"
         </div>
-        <button id="b" onclick="cit()"> Nascondi la citazione </button>
+        <button onclick="cit2()"> Nascondi la citazione </button>
     </div>
-
-    <!--<div id="box">Theodore Roszak
-        <button id="text" onclick="text()" style="display:none">Fai riapparire il testo</button>
-        <div id="cit">
-            "In questioni di scienza, l'autorità di un migliaio di persone non vale tanto quanto l'umile ragionamento di un singolo individuo"
-        </div>
-        <button id="b" onclick="cit()"> Nascondi la citazione </button>
-    </div>-->
 
     <div id="box">Carl Sagan
         <div id="cit3">
@@ -85,18 +75,16 @@
             testo.style.display = "block";
             wow.style.display='none';
         }
-        function cit(){
-        //const testo = document.getElementById("cit");
+
+        
+        function cit1(){
+        const testo = document.getElementById("cit1");
         testo.style.display = "none";
-        wow.style.display='block';
-        b.style.display='none';
         }
         
-        /*function cit(){
-        const testo = document.getElementById("cit");
+        function cit2(){
+        const testo = document.getElementById("cit2");
         testo.style.display = "none";
-        wow.style.display='block';
-        document.getElementById('b').style.display='none';
         }
         
         function cit3(){
@@ -112,7 +100,7 @@
         function cit5(){
         const testo = document.getElementById("cit5");
         testo.style.display = "none";
-        }*/
+        }
     </script>
 </body>
 </html>
