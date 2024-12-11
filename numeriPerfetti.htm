@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fattorizzazione numerica</title>
+
+    <style>
+        #out1{
+            background-color: aqua;
+        }
+        #bob{
+            background-color:beige;
+        }
+    </style>
+
+</head>
+<body>
+
+    <p id="out1"></p>
+    <p id="bob"></p>
+
+    <script>
+
+        const numeriPerfetti = [];
+        const numeriNonPerfetti = [];
+
+        function fattorizzazione(numero){
+            let fattore = 0;
+            for (let i = 1; i<=numero/2; i++){
+                if(numero%i == 0){
+                    fattore = fattore + i;
+                };
+            };
+            return fattore;
+        };
+
+        for (let j = 1; j<=10000; j++){
+            document.getElementById("bob").innerHTML += "Il numero è: " + j + " ; La fattorizzazione è: " + fattorizzazione(j) + "<br>";
+
+            if (fattorizzazione(j) == j){
+                numeriPerfetti.push(j);
+            };
+        };
+
+        document.getElementById("out1").innerHTML = "i primi 4 numeri perfetti sono: " + numeriPerfetti;
+
+    </script>
+</body>
+</html>
