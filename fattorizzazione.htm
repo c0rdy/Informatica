@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fattorizzazione numerica</title>
+
+    <style>
+        #out1{
+            background-color: aqua;
+        }
+        #bob{
+            background-color:beige;
+        }
+    </style>
+
+</head>
+<body>
+
+    <p id="out1"></p>
+    <p id="bob"></p>
+
+    <script>
+
+        const numeriPerfetti = [];
+        const numeriNonPerfetti = [];
+
+        let fattore = 0;
+        function fattorizzazione(numero){
+            for (let i = 1; i<=numero/2; i++){
+                if(numero%i == 0){
+                    fattore = fattore + i;
+                };
+            };
+            return fattore;
+        };
+        document.getElementById("bob").innerHTML = fattorizzazione(12)
+
+        /*for (let i = 1; i<=100; i++){
+
+            document.getElementById("bob").innerHTML += "il fattore è"fattorizzazione(i) + "<br>";
+
+            if (fattorizzazione(numero) == numero){
+                numeriPerfetti.push(numero);
+            } else {
+                numeriNonPerfetti.push(numero);
+            }
+           document.getElementById("out1").innerHTML = numeriPerfetti;
+        }*/
+        document.getElementById("out1").innerHTML = numeriPerfetti;
+    </script>
+</body>
+</html>
+
+
+if n%i == 0, allora i è un fattore; faccio i vari cicli e sommo tutti i fattori
