@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        #spirale_aurea{
+            width: 377px;
+            height: 233px;
+            border:1px solid #d3d3d3;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        Il numero aureo è un numero irrazionale <br>
+        Questo numero, arrotondato a 15 cifre decimali, è pari a:
+    </div>
+    <div id="out1"></div>
+    
+    <Canvas id="spirale_aurea"></Canvas>
+
+    <script>
+        //Formula per il calcolo del numero aureo
+        let n = (1+Math.sqrt(5))/2;
+        document.getElementById("out1").innerHTML = n;
+
+        //Disegno della spirale aurea
+        //Passaggio 1
+        let c = document.getElementById("spirale_aurea");
+        let ctx = c.getContext("2d");
+        ctx.beginPath();
+        ctx.arc(145,155,155,0,4.7,2*Math.PI);
+        ctx.stroke();
+
+        //Passaggio 2
+        let d = document.getElementById("spirale_aurea");
+        let dtx = d.getContext("2d");
+        dtx.beginPath();
+        dtx.arc(145,96,96,4.7,15.7,2*Math.PI);
+        dtx.stroke();
+
+        //Passaggio 3
+        let e = document.getElementById("spirale_aurea");
+        let etx = e.getContext("2d");
+        etx.beginPath();
+        etx.arc(108,91,59,-15.7,-4.7,2*Math.PI);
+        etx.stroke();
+
+        //Passaggio 4
+        let f = document.getElementById("spirale_aurea");
+        let ftx = f.getContext("2d");
+        ftx.beginPath();
+        ftx.arc(108,91,59,-4.7,0,2*Math.PI);
+        ftx.stroke();
+
+        //Passaggio 5
+        let g = document.getElementById("spirale_aurea");
+        let gtx = g.getContext("2d");
+        gtx.beginPath();
+        gtx.arc(130.5,91,36.6,0,4.7,2*Math.PI);
+        gtx.stroke();
+
+        //Passaggio 6
+        let h = document.getElementById("spirale_aurea");
+        let htx = h.getContext("2d");
+        htx.beginPath();
+        htx.arc(130.5,77.2,22.6,4.7,15.7,2*Math.PI);
+        htx.stroke();
+
+        //Passaggio 7
+        let i = document.getElementById("spirale_aurea");
+        let itx = i.getContext("2d");
+        itx.beginPath();
+        itx.arc(121.8,77.2,14,-15.7,-4.7,2*Math.PI);
+        itx.stroke();
+
+        //Passaggio 8
+        let j = document.getElementById("spirale_aurea");
+        let jtx = j.getContext("2d");
+        jtx.beginPath();
+        jtx.arc(121.8,82.4,8.7,-4.7,0,2*Math.PI);
+        jtx.stroke();
+
+        //Passaggio 9
+        let k = document.getElementById("spirale_aurea");
+        let ktx = k.getContext("2d");
+        ktx.beginPath();
+        ktx.arc(124.9,82.4,5.3,0,4.7,2*Math.PI);
+        ktx.stroke();
+
+        //Passaggio 10
+        let l = document.getElementById("spirale_aurea");
+        let ltx = l.getContext("2d");
+        ltx.beginPath();
+        ltx.arc(124.9,80.5,3.3,4.7,15.7,2*Math.PI);
+        ltx.stroke();
+    </script>
+</body>
+</html>
