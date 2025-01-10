@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        body{
+            background-color: blanchedalmond;
+        }
+        #out1{
+            font-size: 15px;
+        }
+    </style>
+</head>
+<body>
+    
+    <h1>Il numero aureo nei numeri di fibonacci</h1>
+    <div id="out1"></div>
+
+    <script>
+        let fibonacci = [0, 1]; // I primi due numeri di Fibonacci
+        let divisioni = []; //array in cui inserisco le divisioni tra due numeri di fibonacci successivi
+
+        for (let i = 2, a=0; i < 100, a<=50; i++, a++) {
+            fibonacci[i] = fibonacci[i - 1] + fibonacci[i - 2];
+            divisioni[a] = fibonacci[i-1]/fibonacci[i-2];
+            let bro = a + ") " + fibonacci[i-1] + ":" + fibonacci[i-2] + "=" + divisioni[a] + "<br>";
+            document.getElementById("out1").innerHTML +=  bro;
+        }
+
+    </script>
+</body>
+</html>
