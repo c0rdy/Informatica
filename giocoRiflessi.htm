@@ -1,0 +1,102 @@
+!<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Test di Reazione</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+    }
+    .button-container {
+      margin-top: 30px;
+    }
+    .color-button {
+      width: 100px;
+      height: 100px;
+      margin: 10px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      color: white;
+    }
+    #red { background-color: red; }
+    #blue { background-color: blue; }
+    #green { background-color: green; }
+    #yellow { background-color: goldenrod; }
+
+    #message {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    #result {
+      margin-top: 20px;
+      font-weight: bold;
+      font-size: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Test di Reazione</h1>
+  <div id="message">Premi "Inizia" per iniziare</div>
+  <button onclick="startTest()">Inizia</button>
+
+  <div class="button-container">
+    <button class="color-button" id="red" onclick="checkChoice('red')">Rosso</button>
+    <button class="color-button" id="blue" onclick="checkChoice('blue')">Blu</button>
+    <button class="color-button" id="green" onclick="checkChoice('green')">Verde</button>
+    <button class="color-button" id="yellow" onclick="checkChoice('yellow')">Giallo</button>
+  </div>
+
+  <div id="result"></div>
+
+  <script>
+    let correctColor = "";
+    let startTime = 0;
+    const tempiReazione = []
+
+    function startTest() {
+      const colors = ["red", "blue", "green", "yellow"];
+      correctColor = colors[Math.floor(Math.random() * colors.length)]; //estrae un numero tra 0 e 3
+
+      document.getElementById("message").textContent = `Clicca il bottone ${colorName(correctColor)}!`;
+      document.getElementById("result").textContent = "";
+
+      startTime = new Date().getTime();
+    }
+
+    function checkChoice(selectedColor) {
+      if (!correctColor) return;
+
+      const endTime = new Date().getTime();
+      const reactionTime = ((endTime - startTime) / 1000).toFixed(2); //calcola la differenza di tempo
+
+        tempiReazione.push(reactionTime); //mi inserisce i tempi di reazione in un array
+
+      if (selectedColor === correctColor) {
+        document.getElementById("result").textContent = `Bravo! Tempo di reazione: ${reactionTime} secondi`;
+      } else {
+        document.getElementById("result").textContent = `Oops! Hai cliccato il bottone sbagliato. Riprova.`;
+      }
+
+      correctColor = ""; // reset
+    }
+
+    function colorName(colorCode) {
+      switch(colorCode) {
+        case "red": return "rosso";
+        case "blue": return "blu";
+        case "green": return "verde";
+        case "yellow": return "giallo";
+      }
+    }
+
+//genero due serie di dati per due giocatori, poi ne faccio varianza e deviezione standard per giocare il giocatore con i riflessi migliori
+
+  </script>
+
+</body>
+</html>
