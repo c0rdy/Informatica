@@ -36,6 +36,54 @@
             background-color: blue;
             display: none;
         }
+
+        #verdeBtn{
+            padding: 50px 50px;
+            border-radius: 50%;
+            background-color: green;
+            border: 1px solid black;
+            box-shadow: 0 9px #777;
+        }
+        #verdeBtn:active{
+            box-shadow: 0 5px #444;
+            transform: translateY(4px);
+        }
+
+        #rossoBtn{
+            padding: 50px 50px;
+            border-radius: 50%;
+            background-color: red;
+            border: 1px solid black;
+            box-shadow: 0 9px #777;
+        }
+        #rossoBtn:active{
+            box-shadow: 0 5px #444;
+            transform: translateY(4px);
+        }
+
+        #gialloBtn{
+            padding: 50px 50px;
+            border-radius: 50%;
+            background-color: yellow;
+            border: 1px solid black;
+            box-shadow: 0 9px #777;
+        }
+        #gialloBtn:active{
+            box-shadow: 0 5px #444;
+            transform: translateY(4px);
+        }
+
+        #bluBtn{
+            padding: 50px 50px;
+            border-radius: 50%;
+            background-color: blue;
+            border: 1px solid black;
+            box-shadow: 0 9px #777;
+        }
+        #bluBtn:active{
+            box-shadow: 0 5px #444;
+            transform: translateY(4px);
+        }
     </style>
 
 </head>
@@ -58,6 +106,7 @@
     <button id="bluBtn">BLU</button>
 
     <div id="result"></div>
+    <button id="medie" onclick="calcolaMedia()">Calcola la media</button>
 
 <script>
 
@@ -141,7 +190,12 @@
     rossoBtn.addEventListener('click', () => handleColorClick(2));
     bluBtn.addEventListener('click', () => handleColorClick(3));
 
-
+    //calcola la media dei risultati
+    function calcolaMedia(differences) {
+    if (differences.length === 0) return 0;
+    const somma = differences.reduce((acc, val) => acc + val, 0);
+    return somma / differences.length;
+    }
 </script>
 
 </body>
