@@ -224,7 +224,7 @@
             if (array.length === 0) return null;
             clearInterval(sfida); // ferma la sfida
             clearInterval(contatore); // ferma il tempo
-            medie.style.display = 'none';
+            statistiche.style.display = 'none';
 
             const valori = array.map(v => parseFloat(v));
             const somma = valori.reduce((acc, v) => acc + v, 0);
