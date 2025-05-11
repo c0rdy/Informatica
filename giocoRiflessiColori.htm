@@ -91,8 +91,6 @@
     <h1>TESTA I TUOI RIFLESSI!</h1>
     <p>Ogni 5 secondi apparira un colore nuovo: premi il pulsante rispettivo il più velocemente possibile</p>
     <div id="out1"></div>
-    <div id="out2"></div>
-    <div id="out3"></div>
 
     <div id="phantom"></div>
     <div id="coloreVerde"></div>
@@ -106,7 +104,7 @@
     <button id="bluBtn">BLU</button>
 
     <div id="result"></div>
-    <button id="medie" onclick="calcolaMedia()">Calcola la media</button>
+    <button id="medie" onclick="calcoliStatistici()">Calcola la media</button>
 
 <script>
 
@@ -116,6 +114,16 @@
     const tempiStabiliti = [];
     const differences = [];
     let nextTargetIndex = 0;
+
+    let currentPlayer = 1;
+    const tempiGiocatore1 = [];
+    const tempiGiocatore2 = [];
+    const diffsGiocatore1 = [];
+    const diffsGiocatore2 = [];
+
+    let p1 = prompt("Giocatore 1, inserisci il tuo nome");
+    let p2 = prompt("Giocatore 2, inserisci il tuo nome");
+
 
 
     //arrotonda il contatore a due cifre decimali
@@ -132,7 +140,6 @@
     let sfida = setInterval(function challenge(){
         phantom.style.display = 'none';
         n = Math.floor(Math.random()*4);
-        document.getElementById("out2").innerHTML = n;
         colori.push(n);
 
         if(n==0){
@@ -167,35 +174,87 @@
         if (colori[colori.length-1]!==colori[colori.length-2]){
             let tempi = parseFloat(tempo.toFixed(2));
             tempiStabiliti.push(tempi);
-            document.getElementById("out3").innerHTML = tempiStabiliti;
         };
 
     }, 5000);
 
     //registra i tempi presi e compie i vari calcoli
     function handleColorClick(colorIndex) {
-      if (colori[colori.length - 1] === colorIndex && nextTargetIndex < tempiStabiliti.length) {
-        const targetTime = tempiStabiliti[nextTargetIndex];
-        const currentTime = parseFloat(formatTimer(tempo));
-        const difference = (currentTime - targetTime).toFixed(2);
+        if (colori[colori.length - 1] === colorIndex && nextTargetIndex < tempiStabiliti.length) {
+            const targetTime = tempiStabiliti[nextTargetIndex];
+            const currentTime = parseFloat(formatTimer(tempo));
+            const difference = parseFloat((currentTime - targetTime).toFixed(2));
 
-        differences.push(difference);
-        document.getElementById("result").innerHTML += `<p>Obiettivo: ${targetTime}, Tempo preso: ${currentTime}, Differenza: ${difference}</p>`;
-        nextTargetIndex++;
-      }
+            if (currentPlayer === 1) {
+                tempiGiocatore1.push(currentTime);
+                diffsGiocatore1.push(difference);
+                document.getElementById("result").innerHTML += `<p><strong>${p1}</strong> - Obiettivo: ${targetTime}, Tempo: ${currentTime}, Diff: ${difference}</p>`;
+            } else {
+                tempiGiocatore2.push(currentTime);
+            diffsGiocatore2.push(difference);
+            document.getElementById("result").innerHTML += `<p><strong>${p2}</strong> - Obiettivo: ${targetTime}, Tempo: ${currentTime}, Diff: ${difference}</p>`;
+            }
+
+            currentPlayer = currentPlayer === 1 ? 2 : 1; // alterna il giocatore
+            nextTargetIndex++;
+
+            if (tempiGiocatore1.length === 50 && tempiGiocatore2.length === 50) {
+                clearInterval(sfida); // ferma la sfida
+                clearInterval(contatore); // ferma il tempo
+                document.getElementById("result").innerHTML += `<h2>Gioco terminato! Ecco le statistiche finali:</h2>`;
+                calcoliStatistici(); // esegue i calcoli
+            }
+        }
     }
+
 
     verdeBtn.addEventListener('click', () => handleColorClick(0));
     gialloBtn.addEventListener('click', () => handleColorClick(1));
     rossoBtn.addEventListener('click', () => handleColorClick(2));
     bluBtn.addEventListener('click', () => handleColorClick(3));
 
-    //calcola la media dei risultati
-    /*function calcolaMedia(differences) {
-    if (differences.length === 0) return 0;
-    const somma = differences.reduce((acc, val) => acc + val, 0);
-    return somma / differences.length;
-    }*/
+    //compie dei calcoli statistici con i dati che ha a disposizione
+    function calcoliStatistici() {
+        function calcolaStats(array) {
+            if (array.length === 0) return null;
+            clearInterval(sfida); // ferma la sfida
+            clearInterval(contatore); // ferma il tempo
+            medie.style.display = 'none';
+
+            const valori = array.map(v => parseFloat(v));
+            const somma = valori.reduce((acc, v) => acc + v, 0);
+            const media = somma / valori.length;
+            const max = Math.max(...valori);
+            const min = Math.min(...valori);
+            const varianza = valori.reduce((acc, v) => acc + Math.pow(v - media, 2), 0) / valori.length;
+            const stdDev = Math.sqrt(varianza);
+
+            return {
+                media: media.toFixed(2),
+                max: max.toFixed(2),
+                min: min.toFixed(2),
+                devStandard: stdDev.toFixed(2)
+            };
+        }
+
+        const stats1 = calcolaStats(diffsGiocatore1);
+        const stats2 = calcolaStats(diffsGiocatore2);
+
+        if (stats1 && stats2) {
+            document.getElementById("result").innerHTML += `<h3>Statistiche per ${p1}</h3>
+                <p>Media: ${stats1.media}</p>
+                <p>Max: ${stats1.max}</p>
+                <p>Min: ${stats1.min}</p>
+                <p>Deviazione Standard: ${stats1.devStandard}</p>`;
+
+            document.getElementById("result").innerHTML += `<h3>Statistiche per ${p2}</h3>
+                <p>Media: ${stats2.media}</p>
+                <p>Max: ${stats2.max}</p>
+                <p>Min: ${stats2.min}</p>
+                <p>Deviazione Standard: ${stats2.devStandard}</p>`;
+        }
+    }
+
 </script>
 
 </body>
