@@ -11,30 +11,35 @@
             height: 300px;
             background-color: bisque;
             display: block;
+            border-bottom: 10px solid white;
         }
         #coloreVerde{
             width: 100%;
             height: 300px;
             background-color: green;
             display: none;
+            border-bottom: 10px solid white;
         }
         #coloreGiallo{
             width: 100%;
             height: 300px;
             background-color: yellow;
             display: none;
+            border-bottom: 10px solid white;
         }
         #coloreRosso{
             width: 100%;
             height: 300px;
             background-color: red;
             display: none;
+            border-bottom: 10px solid white;
         }
         #coloreBlu{
             width: 100%;
             height: 300px;
             background-color: blue;
             display: none;
+            border-bottom: 10px solid white;
         }
 
         #verdeBtn{
@@ -88,8 +93,7 @@
 
 </head>
 <body>
-    <h1>TESTA I TUOI RIFLESSI!</h1>
-    <p>Ogni 5 secondi apparira un colore nuovo: premi il pulsante rispettivo il più velocemente possibile</p>
+    <h1>SFIDA DI RIFLESSI!</h1>
     <div id="out1"></div>
 
     <div id="phantom"></div>
@@ -98,13 +102,13 @@
     <div id="coloreRosso"></div>
     <div id="coloreBlu"></div>
 
-    <button id="verdeBtn" >VERDE</button>
-    <button id="gialloBtn" >GIALLO</button>
-    <button id="rossoBtn" >ROSSO</button>
-    <button id="bluBtn">BLU</button>
+    <button id="verdeBtn" ></button>
+    <button id="gialloBtn" ></button>
+    <button id="rossoBtn" ></button>
+    <button id="bluBtn"></button>
 
     <div id="result"></div>
-    <button id="medie" onclick="calcoliStatistici()">Calcola la media</button>
+    <button id="statistiche" onclick="calcoliStatistici()">Mostra le statistiche</button>
 
 <script>
 
@@ -123,6 +127,7 @@
 
     let p1 = prompt("Giocatore 1, inserisci il tuo nome");
     let p2 = prompt("Giocatore 2, inserisci il tuo nome");
+    let avviso = alert("Ogni 5 secondi apparira un colore nuovo: premi il pulsante rispettivo il più velocemente possibile. Parte il giocatore 1 e si alternerà con il giocatore 2. BUON DIVERTIMENTO!")
 
 
 
