@@ -89,6 +89,12 @@
             box-shadow: 0 5px #444;
             transform: translateY(4px);
         }
+
+        #boxBottoni{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
     </style>
 
 </head>
@@ -102,10 +108,12 @@
     <div id="coloreRosso"></div>
     <div id="coloreBlu"></div>
 
-    <button id="verdeBtn" ></button>
-    <button id="gialloBtn" ></button>
-    <button id="rossoBtn" ></button>
-    <button id="bluBtn"></button>
+    <div id="boxBottoni">
+        <button id="verdeBtn" ></button>
+        <button id="gialloBtn" ></button>
+        <button id="rossoBtn" ></button>
+        <button id="bluBtn"></button>
+    </div>
 
     <div id="result"></div>
     <button id="statistiche" onclick="calcoliStatistici()">Mostra le statistiche</button>
