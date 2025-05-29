@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L'allunaggio</title>
+
+    <style>
+        #titolo{
+            position: fixed; /* o absolute */
+            top: 0;
+            left: 1%;
+        }
+
+        /* Impostazioni per il div datiNavicella */
+        #datiNavicella{
+            position: fixed;
+            top: 15%;
+            left: 1%;
+        }
+
+        #comandi{
+            height: 400px;
+            width: 20%;
+
+            position: fixed;
+            top: 50%;
+            right: 1%;
+            transform: translateY(-50%);
+        }
+
+        /*Controlli dei motori*/
+        #motoriOnOff{
+            position: fixed;
+            top: 0;
+            right: 0;
+            transform: translateY(-50%);
+        }
+
+        /* Rende lo slider verticale */
+        #PotenzaMotori {
+            writing-mode: bt-lr; /* bottom to top --> left to right */
+            -webkit-appearance: slider-vertical;
+            appearance: slider-vertical;
+            height: 300px;
+            width: 20px;
+            margin-left: 20px;
+
+            position: fixed;
+            top: 50%;
+            left: 68%;
+            transform: translate(-50%, -50%);
+        }
+
+        #canvas{
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+<body>
+    <h1 id="titolo">L'ALLUNAGGIO</h1>
+    <div id="comandi">
+        <div id="motoriOnOff">
+            <button id="onBtn" onclick="accendiMotori()">Accendi<br>i motori</button>
+            <button id="offBtn" onclick="spegniMotori()">Spegni<br>i motori</button>
+        </div>
+        <input type="range" min="0" max="100" value="0" class="slider" id="PotenzaMotori"> <!-- Slider che mi permette di regolare la potenza dei motori -->
+    </div>
+
+    <div id="datiNavicella">
+        <h3>
+            <div id="out1">Tempo: 0s</div>
+        </h3>
+        <p>
+            <div id="out2">Velocità: 0m/s</div>
+            <div id="out3">Accelerazione: 0m/s^2</div>
+            <div id="out4">Altezza: 0m</div>
+        </p>
+        <p>
+            <div id="out5">Trazione necessaria alla frenata: 0N</div>
+            <div id="out6">Potenza dei motori: 0N</div>
+            <div id="out7">Motori accesi: no</div>
+        </p>
+    </div>
+
+<canvas id="canvas" width="400" height="550" style="border:1px solid black;"></canvas>
+
+    <script>
+        //Richiede la massa
+let massaOk = false;
+let massa;
+
+while (!massaOk) {
+    massa = parseFloat(prompt("Inserisci la massa della navicella (tra 50T e 500T)"));
+    if (massa < 50 || massa > 500 || isNaN(massa)) {
+        console.log("Il valore della massa è incorretto");
+    } else {
+        massaOk = true;
+    }
+}
+
+let velocità = parseFloat(prompt("Inserisci la velocità iniziale della navicella (m/s)"));
+let vel = velocità;
+let arrayVelocità = [velocità];
+let accelerazione;
+let altezza = 10000;
+const g_Luna = 1.66;
+let T; //trazione necessaria
+let trazione; //forza fornita dai motori
+
+//Dati relativi ai motori
+let potenzaBaseMotori = 10000; //la potenza dei motori parte da 10kN
+let slider;
+let potenzaMotori;
+let motoriOn = false;
+let accelerazioneMotori;
+
+//Impostazioni per far sì che lo slider sia collegato ai motori
+window.onload = function() {
+    slider = document.getElementById("PotenzaMotori");
+    potenzaMotori = parseFloat(slider.value) * potenzaBaseMotori;
+    document.getElementById("out6").innerHTML = "Potenza dei motori: " + potenzaMotori + "N";
+    slider.oninput = function() {
+        potenzaMotori = parseFloat(slider.value) * potenzaBaseMotori;
+        document.getElementById("out6").innerHTML = "Potenza dei motori: " + potenzaMotori + "N";
+    };
+}
+
+//Porzione per il caricamento dell'immagine del razzo
+const rocketImg = new Image();
+rocketImg.src = "rocket.png";
+
+rocketImg.onload = function() {
+    drawRocket(getYFromAltezza(altezza)); // disegna il razzo per la prima volta appena è pronta l’immagine
+}
+
+
+//Valore booleano che va controllato per non far partire i motori spenti avviando lo slider
+function accendiMotori(){
+    motoriOn = true;
+    document.getElementById("out7").innerHTML = "Motori accesi: sì";
+}
+function spegniMotori(){
+    motoriOn = false;
+    document.getElementById("out7").innerHTML = "Motori accesi: no";
+}
+
+//Temporizzatore
+let tempo = 0;
+let t = setInterval(()=>{
+    tempo += deltaT;
+    document.getElementById("out1").innerHTML = "Tempo: " + tempo.toFixed(2) + "s";
+    
+    calcolaAccelerazione();
+    calcolaVelocità();
+    aggiornaAltezza();
+    calcolaTrazione();
+    checkAltezza();
+
+}, 10);
+let deltaT = 0.01; //il temporizzatore reitera ogni 0.01 secondi
+
+
+//Calcolo della velocità
+function calcolaVelocità(){
+    vel += accelerazione * deltaT;
+    document.getElementById("out2").innerHTML = "Velocità: " + vel.toFixed(2) + " m/s";
+}
+
+//Calcolo dell'accelerazione
+function calcolaAccelerazione() {
+    if (motoriOn) {
+        accelerazioneMotori = potenzaMotori / (massa * 1000); // F = ma → a = F/m
+        accelerazione = g_Luna - accelerazioneMotori;
+    } else {
+        accelerazione = g_Luna;
+    }
+    document.getElementById("out3").innerHTML = "Accelerazione: " + accelerazione.toFixed(2) + " m/s²";
+}
+
+//aggiorna il valore dell'altezza
+function aggiornaAltezza(){
+    altezza -= vel * deltaT + 0.5 * accelerazione * deltaT * deltaT;
+    document.getElementById("out4").innerHTML = "Altezza: " + Math.max(0, altezza).toFixed(2) + " m";
+}
+
+//Calcolo della trazione necessaria
+function calcolaTrazione(){
+    T = (massa * 1000) * g_Luna; //forza che i motori devono esercitare per azzerare l'accelerazione (la velocità rimane fissa)
+    document.getElementById("out5").innerHTML = "Trazione necessaria alla frenata: " + T.toFixed(2) + "N";
+}
+
+//Ogni 0.1 secondi, controlla che il razzo non si sia schiantato
+function checkAltezza(){
+    if(altezza<=0 && vel>2){
+        alert("Il razzo si è schiantato sul suolo lunare, missione fallita");
+        clearInterval(t);
+    }else if(altezza<=0 && vel<=2){ //se il razzo atterra con successo, restituisce un messaggio di congratulazioni
+        alert("Missione compiuta! Il razzo è atterrato con successo in " + tempo.toFixed(2) + " secondi!");
+        clearInterval(t);
+    }
+}
+
+
+// Setup Canvas
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+const canvasHeight = canvas.height;
+const canvasWidth = canvas.width;
+
+// Coordinate di disegno della navicella
+function drawRocket(yPosition) {
+    ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+
+    drawStarfield(200);
+    drawLunarSurface();
+
+    const rocketWidth = 40;
+    const rocketHeight = 60;
+
+    // Centra l'immagine nel canvas
+    ctx.drawImage(rocketImg, (canvasWidth - rocketWidth) / 2, yPosition, rocketWidth, rocketHeight);
+
+    //Se i motori sono accesi, visualizza la fiamma
+    if (motoriOn) {
+    ctx.fillStyle = "orange";
+    ctx.beginPath();
+    ctx.moveTo(canvasWidth / 2 - 3, yPosition + rocketHeight-15);     // sinistra più vicina al centro
+    ctx.lineTo(canvasWidth / 2 + 3, yPosition + rocketHeight-15);     // destra più vicina al centro
+    ctx.lineTo(canvasWidth / 2, yPosition + rocketHeight + 10 + Math.random() * 7); // punta più corta e vicino al razzo
+    ctx.closePath();
+    ctx.fill();
+}
+}
+
+
+
+// Converte altezza in metri in posizione Y nel canvas (dall'alto verso il basso)
+function getYFromAltezza(altezzaAttuale) {
+    const maxAltezza = 10000; // altezza iniziale
+    const proporzione = altezzaAttuale / maxAltezza;
+    const y = (1 - proporzione) * canvasHeight; // Y va da 0 (in alto) a canvasHeight (in basso)
+    return Math.min(canvasHeight - 60, Math.max(0, y)); // limita dentro al canvas
+}
+
+// Funzione di animazione continua
+function animate() {
+    const yRocket = getYFromAltezza(altezza);
+    drawRocket(yRocket);
+    requestAnimationFrame(animate); // chiama se stessa per frame successivo
+}
+
+animate(); // Avvia l’animazione
+
+function drawLunarSurface() {
+    ctx.fillStyle = "#888"; // grigio lunare
+    ctx.fillRect(0, canvasHeight - 20, canvasWidth, 20); // rettangolo largo quanto il canvas, alto 20px
+}
+
+function drawStarfield(numStars) {
+  // Sfondo nero
+  ctx.fillStyle = 'black';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  for (let i = 0; i < numStars; i++) {
+    // Posizione casuale
+    const x = Math.random() * canvas.width;
+    const y = Math.random() * canvas.height;
+
+    // Dimensione e luminosità casuali
+    const radius = Math.random() * 1.5 + 0.5; // tra 0.5 e 2 px
+    const alpha = Math.random() * 0.8 + 0.2;  // trasparenza tra 0.2 e 1
+
+    ctx.beginPath();
+    ctx.arc(x, y, radius, 0, 2 * Math.PI);
+    ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
+    ctx.fill();
+  }
+}
+    </script>
+</body>
+</html>
